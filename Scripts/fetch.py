@@ -8,6 +8,12 @@ filename="data.json"
 ABS_LOCATION = os.path.join("Scripts","Data")
 JSON_LOCATE = os.path.join(ABS_LOCATION,filename)
 
+def convertDATA(value,want_to="GB",roundof=2):
+    if want_to == "GB":
+        return round(value/(1024**3),roundof)
+    else:
+        raise("Invalid command")
+
 def getOS():
     os_name = platform.system()
     os_release = platform.release()
@@ -42,11 +48,6 @@ def getCPU():
 
     return data
 
-def convertDATA(value,want_to="GB",roundof=2):
-    if want_to == "GB":
-        return round(value/(1024**3),roundof)
-    else:
-        raise("Invalid command")
 
 def getMemory():
     # Physical RAM data
@@ -96,21 +97,30 @@ def submit_to_JSON():
         }
     return data
 
+def give_MachineType():
+    locate = None
+    if platform.system() == "Windows":
+        locate = "C:\\"
+    else:
+        locate = "/"
+    return locate
+
+
 def create_JSON():  
 
-    data = submit_to_JSON()
+    final_data = submit_to_JSON()
     if not os.path.exists(ABS_LOCATION):
         os.makedirs(ABS_LOCATION)
     else:
         pass
 
     with open(JSON_LOCATE,"w") as f:
-        json.dump(data,f,indent=4)
+        json.dump(final_data,f,indent=4)
     return 0
 
 def main():
+    create_JSON()
     return 0
 
 if __name__ == "__main__":
-    create_JSON()
     main()
