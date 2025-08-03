@@ -232,8 +232,8 @@ def getProcess():
             process_list.append({
                 'pid': task.info['pid'],
                 'name': task.info['name'],
-                'cpu': cpu_percent,
-                'memory': task.info['memory_percent']
+                'cpu': round(cpu_percent,4),
+                'memory': round(task.info['memory_percent'],4)
             })
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             continue
