@@ -86,24 +86,10 @@ def getMemory():
 
     return data
 
-def submit_to_JSON():
-    OS = getOS()
-    CPU = getCPU()
-    MEMORY = getMemory()
-    DISK = getDisk()
-    data = {
-        "OS":OS,
-        "CPU" : CPU,
-        "MEMORY" : MEMORY,
-        "DISK" : DISK
-        }
-    return data
-
 def getDisk():
     i = 0
     disk = psutil.disk_usage(give_MachineType())
     iodisk = psutil.disk_io_counters(perdisk=True)
-    global iodict
     iodict = {}
     disk_dict = {}
 
@@ -143,6 +129,73 @@ def getDisk():
     }
 
     return data
+
+def convertTIME(time,want_to="sec to hrs"):
+    result = None
+
+    def isValid():
+        if time > 24 or time <= 0:
+            return False
+        else:
+            return True
+        
+    if want_to == "sec to hrs":
+        result = time/3600
+        result = round(result,4)
+        if isValid:
+            return result
+        else:
+            return False
+    return "fcked up"
+
+def getBattery():
+    battery = psutil.sensors_battery()
+    battery_left = battery.percent
+
+    On_charge = None
+    if battery.power_plugged:
+        On_charge
+        On_charge = "Yes"    
+    else:
+        On_charge = "No"    
+    
+    Estimated_time = None
+    if battery.secsleft == psutil.POWER_TIME_UNKNOWN:
+        Estimated_time
+        Estimated_time = "Not available"
+    elif battery.secsleft == psutil.POWER_TIME_UNLIMITED:
+        Estimated_time = "Infinite (charging)"
+    
+    else:
+        if convertTIME(time=battery.secsleft) != True:
+            Estimated_time = "Unrealistic value given by the OS."
+        else:
+            Estimated_time = convertTIME(time=battery.secsleft)
+
+    data ={
+        "Battery left" : battery_left,
+        "Is charging" : On_charge,
+        "Estimated Time left" : Estimated_time
+    }
+
+    return data
+
+def submit_to_JSON():
+    OS = getOS()
+    CPU = getCPU()
+    MEMORY = getMemory()
+    DISK = getDisk()
+    BATTERY = getBattery()
+    data = {
+        "OS":OS,
+        "CPU" : CPU,
+        "MEMORY" : MEMORY,
+        "DISK" : DISK,
+        "BATTERY" : BATTERY
+        }
+    
+    return data
+
 
 def give_MachineType():
     locate = None
