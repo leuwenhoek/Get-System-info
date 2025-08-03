@@ -90,11 +90,58 @@ def submit_to_JSON():
     OS = getOS()
     CPU = getCPU()
     MEMORY = getMemory()
+    DISK = getDisk()
     data = {
         "OS":OS,
         "CPU" : CPU,
         "MEMORY" : MEMORY,
+        "DISK" : DISK
         }
+    return data
+
+def getDisk():
+    i = 0
+    disk = psutil.disk_usage(give_MachineType())
+    iodisk = psutil.disk_io_counters(perdisk=True)
+    global iodict
+    iodict = {}
+    disk_dict = {}
+
+    disk_total = convertDATA(disk.total)
+    disk_used = convertDATA(disk.used)
+    disk_free = convertDATA(disk.free)
+    disk_percent = round(disk.percent,2)
+
+    disk_dict = {
+        "Total space" : disk_total,
+        "Used space" : disk_used,
+        "Free space" : disk_free,
+        "Used percentage" : disk_percent
+    }
+
+    for disk_,stats in iodisk.items():
+
+        i=i+1
+        iodisk_name = disk_
+        read_count = stats.read_count
+        write_count = stats.write_count
+        write_size = convertDATA(stats.write_bytes)
+        read_size = convertDATA(stats.read_bytes)
+        iodict = {
+            f"Disk {i}": {
+                "Disk name" : iodisk_name,
+                "Write count" : write_count,
+                "Read count" : read_count,
+                "Written size" : write_size,
+                "Readed size" : read_size,
+            }
+        }
+    
+    data = {
+        "Combined Disk" : disk_dict,
+        "Each Disk" : iodict
+    }
+
     return data
 
 def give_MachineType():
