@@ -1,6 +1,7 @@
 import platform
 import psutil
 import json
+import time
 import os
 
 #Global declarations
@@ -213,6 +214,39 @@ def getNetwork():
     
     return data
 
+def getProcess():
+    process = list(psutil.process_iter(['pid', 'name', 'memory_percent']))
+    process_list = []
+
+    for p in process:
+        try:
+            p.cpu_percent(interval=None)
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            pass
+
+    time.sleep(1)
+
+    for task in process:
+        try:
+            cpu_percent = task.cpu_percent(interval=None) / psutil.cpu_count()
+            process_list.append({
+                'pid': task.info['pid'],
+                'name': task.info['name'],
+                'cpu': cpu_percent,
+                'memory': task.info['memory_percent']
+            })
+        except (psutil.NoSuchProcess, psutil.AccessDenied):
+            continue
+
+    sorted_list = sorted(process_list, key=lambda x: x['cpu'], reverse=True)
+    top_list = sorted_list[:10]
+
+    data = {
+        'top_processes': top_list
+    }
+
+    return data
+
 
 def submit_to_JSON():
     OS = getOS()
@@ -221,16 +255,19 @@ def submit_to_JSON():
     DISK = getDisk()
     BATTERY = getBattery()
     NETWORK = getNetwork()
+    PROCESS = getProcess()
     data = {
         "OS":OS,
         "CPU" : CPU,
         "MEMORY" : MEMORY,
         "DISK" : DISK,
         "BATTERY" : BATTERY,
-        "NETWORK" : NETWORK
+        "NETWORK" : NETWORK,
+        "PROCESS" : PROCESS
         }
     
     return data
+
 
 
 def give_MachineType():
@@ -240,6 +277,7 @@ def give_MachineType():
     else:
         locate = "/"
     return locate
+
 
 
 def create_JSON():  
