@@ -1,0 +1,63 @@
+📄 Project Plan: System Data Fetcher
+
+🖥 Objective:
+Create a Python program that:
+
+1. Opens an `.exe` file
+2. Waits for 10 seconds in GUI
+3. Automatically opens a localhost link in the browser
+4. show .html file in which all the info is present
+
+---
+
+### 1️⃣ Program Flow
+
+
+1. Fetch System Data
+
+   * CPU Usage (percentage, cores, frequency)
+   * RAM Usage (total, used, free, percentage)
+   * Disk Usage (total, used, free, percentage)
+   * OS Information (name, version, architecture)
+   * Battery Status (percentage, charging/not charging, time left)
+   * Network Info (IP address, speed, interface details)
+   * Running Processes (PID, name, CPU%, memory%)
+
+2. Format & Store Data in JSON
+
+   * Create a dictionary with all system stats
+   * Save data using `json.dump()` in a `.json` file
+
+---
+
+### 2️⃣ File Structure
+
+```
+project/
+│-- main.py              # Main script to run everything
+│-- fetch_data.py        # Functions to fetch CPU, RAM, Disk, etc.
+│-- utils.py             # Utility functions (open exe, open browser)
+│-- requirements.txt     # Required Python modules
+│-- output.json          # Output file with system data
+│-- README.txt           # This instruction file
+```
+
+---
+
+### 3️⃣ Required Python Modules
+
+* `psutil` → CPU, RAM, Disk, Battery, Network
+* `platform` → OS details
+* `socket` → Network IP details
+* `json` → Data storage
+* `time` → Delay handling
+* `subprocess` / `os` → Open `.exe` file
+* `webbrowser` → Open localhost link
+
+---
+
+### 4️⃣ Future Improvements
+
+* Add auto-refresh for live data updates
+* Create a Flask/Django dashboard for visual representation
+* Export reports in CSV or PDF format
