@@ -17,7 +17,6 @@ def getOS():
     processor = platform.processor()
 
     os_dict = {
-        "OS" : {
             "Machine name" : machine_name,
             "OS name" : os_name,
             "OS release" : os_release,
@@ -25,13 +24,20 @@ def getOS():
             "Processor architecture" : architecture,
             "Processor" : processor
         }
-    }
 
     return os_dict
 
-def create_JSON():    
-    data = getOS()
+def getCPU():
+    logicalcpu_count = psutil.cpu_count()
 
+
+def submit_to_JSON():
+    OS = getOS()
+    data = {"OS":OS}
+    return data
+def create_JSON():  
+
+    data = submit_to_JSON()
     if not os.path.exists(ABS_LOCATION):
         os.makedirs(ABS_LOCATION)
     else:
@@ -39,8 +45,6 @@ def create_JSON():
 
     with open(JSON_LOCATE,"w") as f:
         json.dump(data,f,indent=4)
-
-
     return 0
 
 def main():
