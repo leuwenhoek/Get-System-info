@@ -180,18 +180,54 @@ def getBattery():
 
     return data
 
+def getNetwork():
+    network = psutil.net_io_counters(pernic=True)
+    ActiveNet = {}
+    NotinuseNet = {}
+    i = 0  # Counter for active networks
+    y = 0  # Counter for inactive networks
+    
+    def is_Active(byte_rec, byte_sent):
+        return not (byte_rec == 0 and byte_sent == 0)
+    
+    for net_name, net in network.items():
+        if is_Active(net.bytes_recv, net.bytes_sent):
+            i += 1
+            ActiveNet[f"Network name {i}"] = {
+                "Network name": net_name,
+                "Data downloaded": convertDATA(net.bytes_recv),
+                "Data uploaded": convertDATA(net.bytes_sent),
+                "Total packets uploaded": net.packets_sent,
+                "Total packets received": net.packets_recv,
+            }
+        else:
+            y += 1
+            NotinuseNet[f"Network name {y}"] = {
+                "Network name": net_name
+            }
+    
+    data = {
+        "Active networks": ActiveNet,
+        "Inactive networks": NotinuseNet
+    }
+    
+    return data
+
+
 def submit_to_JSON():
     OS = getOS()
     CPU = getCPU()
     MEMORY = getMemory()
     DISK = getDisk()
     BATTERY = getBattery()
+    NETWORK = getNetwork()
     data = {
         "OS":OS,
         "CPU" : CPU,
         "MEMORY" : MEMORY,
         "DISK" : DISK,
-        "BATTERY" : BATTERY
+        "BATTERY" : BATTERY,
+        "NETWORK" : NETWORK
         }
     
     return data
