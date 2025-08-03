@@ -1,6 +1,12 @@
 import platform
 import psutil
 import json
+import os
+
+#Global declarations
+filename="data.json"
+ABS_LOCATION = os.path.join("Scripts","Data")
+JSON_LOCATE = os.path.join(ABS_LOCATION,filename)
 
 def getOS():
     os_name = platform.system()
@@ -23,16 +29,23 @@ def getOS():
 
     return os_dict
 
-def create_JSON():
+def create_JSON():    
     data = getOS()
-    with open("data.json","w") as f:
+
+    if not os.path.exists(ABS_LOCATION):
+        os.makedirs(ABS_LOCATION)
+    else:
+        pass
+
+    with open(JSON_LOCATE,"w") as f:
         json.dump(data,f,indent=4)
+
 
     return 0
 
 def main():
-    create_JSON()
     return 0
 
 if __name__ == "__main__":
+    create_JSON()
     main()
