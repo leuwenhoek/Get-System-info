@@ -1,2 +1,7 @@
-import pandas as pd
-import psutil
+import fetch
+
+def main():
+    fetch.main()
+    
+if __name__ == "__main__":
+    main()
