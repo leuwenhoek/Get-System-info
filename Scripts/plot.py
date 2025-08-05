@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import pandas as pd
 import os
 import json
     
@@ -71,18 +70,21 @@ def loadData():
         data = json.load(f)
         return data
 
-
-def main():
+def plotMemory():
     ARAM = give_data("Actual RAM")
     VRAM = give_data("Virtual RAM")
-    Each_Disk = give_data("Each Disk")
-    Write_count = give_data("Write count")
-    Read_count = give_data("Read count")
-    Process = give_data("process")
-    CPU_process = give_data("cpu-process")
-    Memory_process = give_data("memory-process")
+
+    #list form (Actaul RAM info, Virtual RAM info)
+
+    total_space = [ARAM['Total memory'],VRAM['Total VRAM']]
+    free_space = [ARAM['Free memory'],VRAM['Free VRAM']]
+    consumed_space = [ARAM['Consumed memory (%)'],VRAM['Consumed VRAM (%)']]
+    used_space = [ARAM['Used-up memory'],VRAM['Used-up VRAM']]
 
     
+
+def main():
+    plotMemory()
     return 0
 
 if __name__ == "__main__":
