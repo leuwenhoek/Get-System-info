@@ -109,11 +109,11 @@ def plotMemory():
     ax.set_axisbelow(True)
     plt.grid(True, which='both', axis='y', linestyle='-', linewidth=0.7, color='gray', zorder=0)
     plt.ylabel('Stats')
-    plt.title("Bar graph")
+    plt.title("Memory info graph")
 
     for container in ax.containers:
         labels = [f'{float(value)} GB' for value in container.datavalues]
-        ax.bar_label(container, labels=labels, label_type='center', color='white', fontsize=9)
+        ax.bar_label(container, labels=labels, label_type='center', color='black', fontsize=9)
 
     saveimage("MemoryInformation.png")
 
