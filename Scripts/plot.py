@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import os
 import json
+import pandas as pd
     
 filename="data.json"
 ABS_LOCATION = os.path.join("Scripts","Data")
@@ -81,7 +82,27 @@ def plotMemory():
     consumed_space = [ARAM['Consumed memory (%)'],VRAM['Consumed VRAM (%)']]
     used_space = [ARAM['Used-up memory'],VRAM['Used-up VRAM']]
 
-    
+
+    df = pd.DataFrame({
+        'Name' : ["Actual RAM","Virtual RAM"],
+        'Total space' : [total_space[0],total_space[1]],
+        'free space' : [free_space[0],free_space[1]],
+        'consumed space' : [consumed_space[0],consumed_space[1]],
+        'used space' : [used_space[0],used_space[1]]
+        
+    })
+
+    ax = df.plot(x='Name',y=['Total space','free space','used space'],kind="bar")
+    ax.set_axisbelow(True)
+    plt.grid(True, which='both', axis='y', linestyle='-', linewidth=0.7, color='gray', zorder=0)
+    plt.ylabel('Stats')
+    plt.title("Bar graph")
+
+    for container in ax.containers:
+        labels = [f'{float(value)} GB' for value in container.datavalues]
+        ax.bar_label(container, labels=labels, label_type='center', color='white', fontsize=9)
+
+    plt.show()
 
 def main():
     plotMemory()
