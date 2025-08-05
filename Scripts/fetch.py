@@ -230,10 +230,11 @@ def getProcess():
         try:
             cpu_percent = task.cpu_percent(interval=None) / psutil.cpu_count()
             process_list.append({
+                'id': None,  
                 'pid': task.info['pid'],
                 'name': task.info['name'],
-                'cpu': round(cpu_percent,4),
-                'memory': round(task.info['memory_percent'],4)
+                'cpu': round(cpu_percent, 4),
+                'memory': round(task.info['memory_percent'], 4)
             })
         except (psutil.NoSuchProcess, psutil.AccessDenied):
             continue
@@ -241,11 +242,17 @@ def getProcess():
     sorted_list = sorted(process_list, key=lambda x: x['cpu'], reverse=True)
     top_list = sorted_list[:10]
 
+    item = [i for i,ids in enumerate(top_list,start=1)]
+
+    for d, new_id in zip(top_list, item):
+        d['id'] = new_id
+
     data = {
         'top_processes': top_list
     }
 
     return data
+
 
 
 def submit_to_JSON():
