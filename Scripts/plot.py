@@ -71,6 +71,19 @@ def loadData():
         data = json.load(f)
         return data
 
+
+def saveimage(name):
+    LOCATION_IMG_DIR = os.path.join("Scripts","IMAGE")
+    IMG_IN = os.path.join("Scripts","IMAGE",name)
+
+    if not os.path.exists(LOCATION_IMG_DIR):
+        os.makedirs(LOCATION_IMG_DIR)
+    else:
+        pass
+
+    plt.savefig(IMG_IN,dpi=300,bbox_inches='tight')
+    return
+
 def plotMemory():
     ARAM = give_data("Actual RAM")
     VRAM = give_data("Virtual RAM")
@@ -102,7 +115,7 @@ def plotMemory():
         labels = [f'{float(value)} GB' for value in container.datavalues]
         ax.bar_label(container, labels=labels, label_type='center', color='white', fontsize=9)
 
-    plt.show()
+    saveimage("MemoryInformation.png")
 
 def main():
     plotMemory()
