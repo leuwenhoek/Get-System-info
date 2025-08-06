@@ -57,7 +57,7 @@ def give_data(want="na"):
         # Memory process info
     elif want == "memory-process":
         top_processes = data.get('PROCESS',{}).get('top_processes',{})
-        Memory_usage = {memory.get('name'): memory.get('memory',0) for memory in top_processes}
+        Memory_usage = {memory.get('id'):{memory.get('name'): memory.get('memory',0)} for memory in top_processes}
         return_data = Memory_usage
 
     else:
@@ -118,7 +118,7 @@ def plotMemory():
     saveimage("MemoryInformation.png")
     return 0
 
-def plotProcess():
+def plotCpuProcess():
     cpu_process = [give_data("cpu-process")]
     cpu_name = []
     cpu_usage =[]
@@ -149,10 +149,48 @@ def plotProcess():
 
     plt.axis('equal')  # Equal aspect ratio to make the pie circular
     plt.title('CPU Usage by Process')
-    saveimage("ProcessInfo.png")
+    saveimage("CpuProcessInfo.png")
+    return 0
+
+def plotMemoryProcess():
+    memory_process = [give_data("memory-process")]
+    print("no of entries : ",memory_process)
+    memory_percentage = []
+    process_name = []
+
+    for proc in memory_process:
+        for id,package in proc.items():
+            for name,memory in package.items():
+                process_name.append(name)
+                memory_percentage.append(memory)
+    df = pd.DataFrame({
+        'Name' : process_name,
+        'Memory in use' : memory_percentage
+    })
+
+    memory = df[f'Memory in use']
+    labels = df['Name']
+    legend_labels = [f"{name} ({size}%)" for name, size in zip(labels, memory)]
+
+    plt.figure(figsize=(8, 8))
+    patches, texts = plt.pie(
+        memory, 
+        startangle=140,
+        textprops={'fontsize': 9}  # size of the percentage text
+    )
+
+    plt.legend(patches, labels=legend_labels, loc='best', fontsize=9)  # Create legend using pie slices
+
+    plt.axis('equal')  # Equal aspect ratio to make the pie circular
+    plt.title('Memory Usage by top 10 programs(according to CPU usage)')
+    saveimage("MemoryProcessInfo.png")
+
     return 0
 
 def main():
+    plotMemory()
+    plotCpuProcess()
+    plotMemoryProcess()
     return 0
 
 if __name__ == "__main__":
