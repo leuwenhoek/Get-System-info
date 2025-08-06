@@ -51,7 +51,7 @@ def give_data(want="na"):
         # CPU process info
     elif want == "cpu-process":
         top_processes = data.get('PROCESS',{}).get('top_processes',{})
-        CPU_usage = {proc.get('name'): proc.get('cpu', 0) for proc in top_processes}
+        CPU_usage = {proc.get('id'):{proc.get('name'): proc.get('cpu', 0)} for proc in top_processes}
         return_data = CPU_usage
 
         # Memory process info
@@ -117,8 +117,41 @@ def plotMemory():
 
     saveimage("MemoryInformation.png")
 
+def plotProcess():
+    cpu_process = [give_data("cpu-process")]
+    cpu_name = []
+    cpu_usage =[]
+    
+    for each_process in cpu_process:
+        for key,values in each_process.items():
+            for name,cpu in values.items():
+                cpu_name.append(name)
+                cpu_usage.append(cpu)
+
+    df = pd.DataFrame({
+        'Name' : [cpu_name[0],cpu_name[1], cpu_name[2], cpu_name[3], cpu_name[4], cpu_name[5], cpu_name[6], cpu_name[7], cpu_name[8],cpu_name[9]],
+        'CPU' : [cpu_usage[0],cpu_usage[1],cpu_usage[2],cpu_usage[3],cpu_usage[4],cpu_usage[5],cpu_usage[6],cpu_usage[7],cpu_usage[8],cpu_usage[9]]
+    })
+
+    cpu = df[f'CPU']
+    labels = df['Name']
+    legend_labels = [f"{name} ({size}%)" for name, size in zip(labels, cpu)]
+
+    plt.figure(figsize=(8, 8))
+    patches, texts = plt.pie(
+        cpu, 
+        startangle=140,
+        textprops={'fontsize': 9}  # size of the percentage text
+    )
+
+    plt.legend(patches, labels=legend_labels, loc='best', fontsize=9)  # Create legend using pie slices
+
+    plt.axis('equal')  # Equal aspect ratio to make the pie circular
+    plt.title('CPU Usage by Process')
+    saveimage("ProcessInfo.png")
+
+
 def main():
-    plotMemory()
     return 0
 
 if __name__ == "__main__":
