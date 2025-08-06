@@ -82,7 +82,7 @@ def saveimage(name):
         pass
 
     plt.savefig(IMG_IN,dpi=300,bbox_inches='tight')
-    return
+    return 0
 
 def plotMemory():
     ARAM = give_data("Actual RAM")
@@ -116,6 +116,7 @@ def plotMemory():
         ax.bar_label(container, labels=labels, label_type='center', color='black', fontsize=9)
 
     saveimage("MemoryInformation.png")
+    return 0
 
 def plotProcess():
     cpu_process = [give_data("cpu-process")]
@@ -149,7 +150,7 @@ def plotProcess():
     plt.axis('equal')  # Equal aspect ratio to make the pie circular
     plt.title('CPU Usage by Process')
     saveimage("ProcessInfo.png")
-
+    return 0
 
 def main():
     return 0
