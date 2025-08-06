@@ -12,6 +12,8 @@ JSON_LOCATE = os.path.join(ABS_LOCATION,filename)
 def convertDATA(value,want_to="GB",roundof=2):
     if want_to == "GB":
         return round(value/(1024**3),roundof)
+    elif want_to == "MB":
+        return round(value/1024**2,roundof)
     else:
         raise("Invalid command")
 
@@ -227,17 +229,15 @@ def getProcess():
     time.sleep(1)
 
     for task in process:
-        try:
-            cpu_percent = task.cpu_percent(interval=None) / psutil.cpu_count()
-            process_list.append({
-                'id': None,  
-                'pid': task.info['pid'],
-                'name': task.info['name'],
-                'cpu': round(cpu_percent, 4),
-                'memory': round(task.info['memory_percent'], 4)
-            })
-        except (psutil.NoSuchProcess, psutil.AccessDenied):
-            continue
+        cpu_percent = task.cpu_percent(interval=None) / psutil.cpu_count()
+        process_list.append({
+            'id': None,  
+            'pid': task.info['pid'],
+            'name': task.info['name'],
+            'cpu': round(cpu_percent, 4),
+            'memory': round(task.info['memory_percent'], 4)
+        })
+       
 
     sorted_list = sorted(process_list, key=lambda x: x['cpu'], reverse=True)
     top_list = sorted_list[:10]
