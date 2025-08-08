@@ -6,8 +6,8 @@ import os
 
 # Global declarations
 FILENAME = "data.json"
-ABS_LOCATION = os.path.join("Scripts", "Data")
-JSON_LOCATE = os.path.join(ABS_LOCATION, FILENAME)
+ABS_LOCATION = os.path.join("Scripts")
+JSON_LOCATE = os.path.join(ABS_LOCATION,"Data", FILENAME)
 
 def convertDATA(value, want_to="GB", roundof=2):
     try:
