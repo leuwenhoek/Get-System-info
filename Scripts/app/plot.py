@@ -5,8 +5,8 @@ import pandas as pd
 
 # Global declarations
 filename = "data.json"
-ABS_LOCATION = os.path.join("Scripts", "Data")
-JSON_LOCATE = os.path.join(ABS_LOCATION, filename)
+ABS_LOCATION = os.path.join("Scripts")
+JSON_LOCATE = os.path.join(ABS_LOCATION,"data", filename)
 
 def loadData():
     try:
