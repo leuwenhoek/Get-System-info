@@ -1,7 +1,11 @@
 from flask import Flask
-from flask import render_template
+from flask import render_template,redirect,url_for
 
 app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return redirect(url_for("unable_to_access"))
 
 @app.route("/help")
 def unable_to_access():
