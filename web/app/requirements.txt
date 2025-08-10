@@ -1,1 +1,6 @@
-flask
+#for the project
+Flask==2.2.3
+
+#for the deployer side
+gunicorn==20.1.0
+requests==2.28.1
