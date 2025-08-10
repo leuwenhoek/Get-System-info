@@ -4,9 +4,9 @@ import json
 import pandas as pd
 
 # Global declarations
-filename = "data.json"
-ABS_LOCATION = os.path.join("Scripts", "Data")
-JSON_LOCATE = os.path.join(ABS_LOCATION, filename)
+filename = "db.json"
+ABS_LOCATION = os.path.join("main","Scripts")
+JSON_LOCATE = os.path.join(ABS_LOCATION,"Data", filename)
 
 def loadData():
     try:
@@ -59,8 +59,8 @@ def give_data(want="na"):
 
 def saveimage(name):
     try:
-        LOCATION_IMG_DIR = os.path.join("Scripts", "IMAGE")
-        IMG_IN = os.path.join("Scripts", "IMAGE", name)
+        LOCATION_IMG_DIR = os.path.join(ABS_LOCATION, "IMAGE")
+        IMG_IN = os.path.join(ABS_LOCATION, "IMAGE", name)
 
         if not os.path.exists(LOCATION_IMG_DIR):
             os.makedirs(LOCATION_IMG_DIR)

@@ -5,9 +5,9 @@ import time
 import os
 
 # Global declarations
-FILENAME = "data.json"
-ABS_LOCATION = os.path.join("Scripts")
-JSON_LOCATE = os.path.join(ABS_LOCATION,"Data", FILENAME)
+FILENAME = "db.json"
+ABS_LOCATION = os.path.join("main","Scripts", "Data")
+JSON_LOCATE = os.path.join(ABS_LOCATION, FILENAME)
 
 def convertDATA(value, want_to="GB", roundof=2):
     try:
