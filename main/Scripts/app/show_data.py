@@ -45,6 +45,11 @@ def get_data(want):
     elif given == "process data":
         top_processes = data["PROCESS"]["top_processes"]
         return top_processes
+    elif given == "combined disk":
+        combined_disk = data["DISK"]["Combined Disk"]
+        return combined_disk
+    elif given == "each disk":    
+        return data["DISK"]["Each Disk"]
     else:
         raise Exception("Wrong command")
 
@@ -77,6 +82,22 @@ def content(want):
 
     inactive_data = get_data("inactive network data")
     network = [v["Network name"] for v in inactive_data.values()]
+
+    each_disk = get_data("each disk")
+    diskdb =''
+    for val,disk in each_disk.items():
+        diskdb += f"""
+        <tr>
+            <td>{val}</td>
+            <td>{disk['Disk name']}</td>
+            <td>{disk['Write count']}</td>
+            <td>{disk['Read count']}</td>
+            <td>{disk['Written size']}</td>
+            <td>{disk['Readed size']}</td>
+        </tr>
+        """
+        
+    Combined_disk = get_data("combined disk")
 
     top_process = get_data("process data")
     top_process_html = ""
@@ -195,6 +216,35 @@ def content(want):
                         <th>Memory (MB)</th>
                     </tr>
                     {top_process_html}
+                </table>
+            </section>
+            <section>
+                <h3>Disk Information (Combined)</h3>
+                <table>
+                    <tr>
+                        <th>Total Read Count</th>
+                        <th>Total Write Count</th>
+                        <th>Total Read Size</th>
+                        <th>Total Write Size</th>
+                    </tr>
+                    <tr>
+                        <td>{Combined_disk['Total space']}</td>
+                        <td>{Combined_disk['Used space']}</td>
+                        <td>{Combined_disk['Free space']}</td>
+                        <td>{Combined_disk['Used percentage']}</td>
+                    </tr>
+                </table>
+                <h3>Disk Information (Each Disk)</h3>
+                <table>
+                    <tr>
+                        <th>Disk ID</th>
+                        <th>Disk Name</th>
+                        <th>Write Count</th>
+                        <th>Read Count</th>
+                        <th>Written Size</th>
+                        <th>Readed Size</th>
+                    </tr>
+                    {diskdb}
                 </table>
             </section>
             <section>
@@ -745,6 +795,7 @@ def create_webpage():
 
 def main():
     create_webpage()
+    
     return 0
 
 if __name__ == "__main__":
