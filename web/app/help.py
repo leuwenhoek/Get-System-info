@@ -20,14 +20,10 @@ def download():
 
 @app.route("/download_request", methods=["POST"])
 def download_request():
-    # You can log, process, or handle the request here
-    # For now, just redirect to download page
     return redirect(url_for("download"))
 
 @app.route("/unable_request", methods=["POST"])
 def unable_request():
-    # You can log, process, or handle the request here
-    # For now, just redirect to unable_to_access page
     return redirect(url_for("unable_to_access"))
 
 if __name__ == "__main__":
