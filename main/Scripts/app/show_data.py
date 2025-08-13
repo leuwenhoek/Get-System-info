@@ -793,8 +793,26 @@ def create_webpage():
     with open(JS_LOCATE,'w',encoding='utf-8') as f:
         f.write(write_js)
 
+
+
+def create_single_html():
+    html = content("html")
+    css = content("css")
+    js = content("js")
+    full_html = html.replace(
+        '<link rel="stylesheet" href="style.css">',
+        f'<style>\n{css}\n</style>'
+    ).replace(
+        f'<script src="\\{{JS_LOCATE}}"></script>',
+        f'<script>\n{js}\n</script>'
+    )
+    if not os.path.exists(os.path.join(ABS_LOCATION, "content")):
+        os.makedirs(os.path.join(ABS_LOCATION, "content"))
+    with open(HTML_LOCATE, 'w', encoding='utf-8') as f:
+        f.write(full_html)
+
 def main():
-    create_webpage()
+    create_single_html()
     
     return 0
 
