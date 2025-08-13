@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download</title>
+    <style>
+        /* Download Page Stylesheet - Modern Dark Theme */
+
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #0f1419 0%, #1a2332 25%, #2d1b69 75%, #0f1419 100%);
+    color: #e8eaed;
+    min-height: 100vh;
+    padding: 40px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background: rgba(43, 47, 49, 0.95);
+    border: 1px solid rgba(97, 218, 251, 0.2);
+    border-radius: 18px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    padding: 40px 32px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.text {
+    font-size: 2em;
+    font-weight: 700;
+    background: linear-gradient(135deg, #61dafb 0%, #21a1c4 50%, #a8dadc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 24px;
+    text-shadow: 0 4px 8px rgba(97, 218, 251, 0.3);
+}
+
+p {
+    font-size: 1.1em;
+    margin-bottom: 32px;
+    color: #a8dadc;
+}
+
+.btn {
+    display: inline-block;
+    padding: 16px 32px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #61dafb 0%, #21a1c4 100%);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(97, 218, 251, 0.15);
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn:hover {
+    background: linear-gradient(135deg, #21a1c4 0%, #61dafb 100%);
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(97, 218, 251, 0.25);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .container {
+        padding: 24px 10px;
+        max-width: 98vw;
+    }
+    .text {
+        font-size: 1.3em;
+    }
+    .btn {
+        padding: 12px 18px;
+        font-size: 1em;
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text">Get-System-Info Download Version</h1>
+        <p>Download the latest version of Get-System-Info below:</p>
+        <a href="/static/Get-System-Info.zip" class="btn">Download v1.0</a>
+        <hr style="margin: 32px 0; border: none; border-top: 1px solid #61dafb;">
+        <h2 style="color:#61dafb; margin-bottom:12px;">Features</h2>
+        <ul style="text-align:left; margin-bottom:24px; color:#a8dadc;">
+            <li>✔️ Detailed system information (CPU, RAM, Disk, Network)</li>
+            <li>✔️ Interactive graphs and tables</li>
+            <li>✔️ Modern, responsive web interface</li>
+            <li>✔️ Easy export and sharing</li>
+        </ul>
+        <h2 style="color:#61dafb; margin-bottom:12px;">Installation</h2>
+        <ol style="text-align:left; margin-bottom:24px; color:#a8dadc;">
+            <li>Download the ZIP file above</li>
+            <li>Extract it to your desired folder</li>
+            <li>Open the README for setup instructions</li>
+            <li>Run <code>python main.py</code> to start</li>
+        </ol>
+        <h2 style="color:#61dafb; margin-bottom:12px;">Need Help?</h2>
+        <p style="color:#a8dadc;">
+            For support or feedback, contact <a style="color:#21a1c4;">ninjabeastyy24@gmail.com</a>
+        </p>
+    </div>
+</body>
+</html>
