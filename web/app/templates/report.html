@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <style>
+        /* Modern Dark Theme for Report Page */
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 25%, #2d1b69 75%, #0f1419 100%);
+            color: #e8eaed;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: rgba(43, 47, 49, 0.95);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            padding: 40px 32px;
+            max-width: 480px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInDown 0.8s ease-out;
+        }
+        h1 {
+            font-size: 2em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #61dafb 0%, #21a1c4 50%, #a8dadc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
+            text-shadow: 0 4px 8px rgba(97, 218, 251, 0.3);
+        }
+        p, label {
+            font-size: 1.1em;
+            color: #a8dadc;
+            margin-bottom: 18px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #21a1c4;
+            background: rgba(58, 63, 65, 0.8);
+            color: #e8eaed;
+            margin-bottom: 18px;
+            font-size: 1em;
+            transition: border 0.2s;
+        }
+        input:focus, textarea:focus, select:focus {
+            border: 2px solid #61dafb;
+            outline: none;
+        }
+        button {
+            padding: 12px 28px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #61dafb 0%, #21a1c4 100%);
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 16px rgba(97, 218, 251, 0.15);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #21a1c4 0%, #61dafb 100%);
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(97, 218, 251, 0.25);
+        }
+        .email-template {
+            background: rgba(58, 63, 65, 0.7);
+            border-radius: 10px;
+            padding: 18px;
+            margin-top: 18px;
+            color: #e8eaed;
+            font-size: 1em;
+            text-align: left;
+            word-break: break-word;
+        }
+        .copy-btn {
+            margin-top: 8px;
+            background: #21a1c4;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 8px 18px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .copy-btn:hover {
+            background: #61dafb;
+            color: #0f1419;
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        @media (max-width: 600px) {
+            .container { padding: 24px 10px; max-width: 98vw;}
+            h1 { font-size: 1.3em;}
+            button, .copy-btn { padding: 10px 16px; font-size: 1em;}
+        }
+    </style>
+    <script>
+        function showFields() {
+            var type = document.getElementById('issue_type').value;
+            document.getElementById('bug_fields').style.display = (type === 'bug') ? 'block' : 'none';
+            document.getElementById('error_fields').style.display = (type === 'error') ? 'block' : 'none';
+            document.getElementById('other_fields').style.display = (type === 'other') ? 'block' : 'none';
+        }
+        function generateEmail() {
+            var name = document.getElementById('user_name').value.trim();
+            var type = document.getElementById('issue_type').value;
+            var subject = "";
+            var body = "";
+            if (type === 'bug') {
+                var bug = document.getElementById('bug_desc').value.trim();
+                subject = "Bug Report: " + (bug.length > 32 ? bug.substring(0,32)+"..." : bug);
+                body = `Hello,\n\nMy name is ${name}.\nI would like to report a bug:\n\n${bug}\n\nThank you.`;
+            } else if (type === 'error') {
+                var error = document.getElementById('error_desc').value.trim();
+                subject = "Error Report: " + (error.length > 32 ? error.substring(0,32)+"..." : error);
+                body = `Hello,\n\nMy name is ${name}.\nI encountered the following error:\n\n${error}\n\nThank you.`;
+            } else {
+                subject = document.getElementById('other_subject').value.trim();
+                var other = document.getElementById('other_desc').value.trim();
+                body = `Hello,\n\nMy name is ${name}.\n${other}\n\nThank you.`;
+            }
+            document.getElementById('email_subject').textContent = subject;
+            document.getElementById('email_body').textContent = body;
+            document.getElementById('email_template').style.display = 'block';
+        }
+        function copyEmail() {
+            var subject = document.getElementById('email_subject').textContent;
+            var body = document.getElementById('email_body').textContent;
+            var emailText = "Subject: " + subject + "\n\n" + body;
+
+            var temp = document.createElement("textarea");
+            temp.value = emailText;
+            document.body.appendChild(temp);
+            temp.select();
+            var copyMsg = document.getElementById('copy_message');
+            try {
+                document.execCommand("copy");
+                copyMsg.textContent = "Copied!";
+            } catch (err) {
+                copyMsg.textContent = "Copy failed. Please copy manually.";
+            }
+            document.body.removeChild(temp);
+        }
+    </script>
+</head>
+<body>
+    <div style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(15, 21, 25, 0.95);
+        padding: 12px 0;
+        text-align: center;
+        color: #a8dadc;
+        font-size: 0.9em;
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(97, 218, 251, 0.2);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    ">
+        <span style="opacity: 0.9;">Report issue on </span>
+        <a href="mailto:ayush.genius69@gmail.com" style="
+            color: #61dafb;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        ">
+            ayush.genius69@gmail.com
+        </a>
+    </div>
+    <div class="container">
+        <h1>Report Issue</h1>
+        <form onsubmit="event.preventDefault(); generateEmail();">
+            <label for="user_name">Your Name:</label>
+            <input type="text" id="user_name" name="user_name" required>
+
+            <label for="issue_type">Issue Type:</label>
+            <select id="issue_type" name="issue_type" onchange="showFields()" required>
+                <option value="" disabled selected>Select type</option>
+                <option value="bug">Bug</option>
+                <option value="error">Error</option>
+                <option value="other">Other</option>
+            </select>
+
+            <div id="bug_fields" style="display:none;">
+                <label for="bug_desc">Describe the bug:</label>
+                <textarea id="bug_desc" name="bug_desc" rows="3"></textarea>
+            </div>
+            <div id="error_fields" style="display:none;">
+                <label for="error_desc">Describe the error:</label>
+                <textarea id="error_desc" name="error_desc" rows="3"></textarea>
+            </div>
+            <div id="other_fields" style="display:none;">
+                <label for="other_subject">Subject:</label>
+                <input type="text" id="other_subject" name="other_subject">
+                <label for="other_desc">Describe your issue:</label>
+                <textarea id="other_desc" name="other_desc" rows="3"></textarea>
+            </div>
+            <button type="submit">Generate Email Template</button>
+        </form>
+        <div id="email_template" class="email-template" style="display:none;">
+            <strong>Email Subject:</strong>
+            <div id="email_subject" style="margin-bottom:8px;"></div>
+            <strong>Email Body:</strong>
+            <pre id="email_body" style="white-space:pre-wrap;"></pre>
+            <button class="copy-btn" onclick="copyEmail()">Copy Email</button>
+            <div id="copy_message" style="margin-top:8px;color:#61dafb;font-weight:600;"></div>
+        </div>
+    </div>
+</body>
+</html>
