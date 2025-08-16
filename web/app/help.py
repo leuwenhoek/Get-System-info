@@ -26,5 +26,17 @@ def download_request():
 def unable_request():
     return redirect(url_for("unable_to_access"))
 
+@app.route("/report")
+def report_page():
+    return render_template("report.html")
+
+@app.route("/report", methods=["POST"])
+def report():
+    return redirect(url_for("report_page"))
+
+@app.route("/about",methods=["POST","GET"])
+def about():
+    return render_template("about.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
