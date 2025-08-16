@@ -206,18 +206,32 @@
         <!-- Main Navigation Section -->
         <main class="nav-section">
             <div class="nav-grid">
-                <form action="{{ url_for('download_request') }}" method="post" class="nav-card" style="border:none;background:none;padding:0;">
+                <form action="{{ url_for('download_request') }}" method="post" class="nav-card" style="border:none;background:none;padding:0;" target="_blank">
                     <button type="submit" style="all:unset;cursor:pointer;width:100%;display:block;">
                         <div class="nav-card-icon">⬇️</div>
                         <h2 class="nav-card-title">Download</h2>
                         <p class="nav-card-description">Get the latest version of Get-System-Info tool. Fast, secure, and easy installation.</p>
                     </button>
                 </form>
-                <form action="{{ url_for('unable_request') }}" method="post" class="nav-card" style="border:none;background:none;padding:0;">
+                <form action="{{ url_for('unable_request') }}" method="post" class="nav-card" style="border:none;background:none;padding:0;" target="_blank">
                     <button type="submit" style="all:unset;cursor:pointer;width:100%;display:block;">
                         <div class="nav-card-icon">🛠️</div>
                         <h2 class="nav-card-title">Unable to Access</h2>
                         <p class="nav-card-description">Having trouble accessing the tool? Find troubleshooting guides and support resources.</p>
+                    </button>
+                </form>
+                <form action="{{ url_for('report') }}" method="post" class="nav-card" style="border:none;background:none;padding:0;" target="_blank">
+                    <button type="submit" style="all:unset;cursor:pointer;width:100%;display:block;">
+                        <div class="nav-card-icon">📝</div>
+                        <h2 class="nav-card-title">Report Issue</h2>
+                        <p class="nav-card-description">Found a bug or having problems? Report issues and help us improve the tool.</p>
+                    </button>
+                </form>
+                <form action="{{ url_for('about') }}" method="post" class="nav-card" style="border:none;background:none;padding:0;" target="_blank">
+                    <button type="submit" style="all:unset;cursor:pointer;width:100%;display:block;">
+                        <div class="nav-card-icon">📊</div>
+                        <h2 class="nav-card-title">About the project</h2>
+                        <p class="nav-card-description">want to know about this project??</p>
                     </button>
                 </form>
             </div>
