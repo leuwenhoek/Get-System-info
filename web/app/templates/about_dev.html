@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get-System-Info - About Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+            color: #e6f1ff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header Section */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-top: 40px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #61dafb, #21a1c4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            color: #8892b0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Profile Photo Section */
+        .photo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: block;
+            border: 1px solid rgba(97, 218, 251, 0.2);
+        }
+        
+        /* Tech Stack Section */
+        .tech-section {
+            margin-bottom: 50px;
+        }
+        
+        .tech-icons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .tech-list {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #8892b0;
+        }
+        
+        .tech-list ul {
+            list-style-type: none;
+        }
+        
+        .tech-list li {
+            margin-bottom: 10px;
+        }
+        
+        /* Projects Section */
+        .projects-section {
+            margin-bottom: 50px;
+        }
+        
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto 0;
+        }
+        
+        .project-card {
+            background: rgba(43, 47, 49, 0.6);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            backdrop-filter: blur(10px);
+        }
+        
+        .project-card:hover {
+            background: rgba(43, 47, 49, 0.8);
+            border-color: rgba(97, 218, 251, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(97, 218, 251, 0.15);
+        }
+        
+        .project-card-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #61dafb;
+            margin-bottom: 12px;
+        }
+        
+        .project-card-description {
+            color: #8892b0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        /* Status Section */
+        .status-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .status-badges {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .stats-images {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        /* Social Media Section */
+        .social-section {
+            margin-bottom: 50px;
+        }
+        
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin: 30px auto 0;
+        }
+        
+        .social-card {
+            background: rgba(43, 47, 49, 0.6);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            backdrop-filter: blur(10px);
+        }
+        
+        .social-card:hover {
+            background: rgba(43, 47, 49, 0.8);
+            border-color: rgba(97, 218, 251, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(97, 218, 251, 0.15);
+        }
+        
+        .social-card-icon {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .social-card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #61dafb;
+        }
+        
+        /* About Section */
+        .about-section {
+            text-align: center;
+            padding: 30px;
+            background: rgba(33, 161, 196, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            margin-bottom: 50px;
+        }
+        
+        .about-title {
+            font-size: 1.3rem;
+            color: #61dafb;
+            margin-bottom: 15px;
+        }
+        
+        .about-text {
+            color: #8892b0;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+        
+        .about-list {
+            list-style-type: none;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        
+        .about-list li {
+            margin-bottom: 10px;
+        }
+        
+        .quote {
+            font-style: italic;
+            color: #61dafb;
+            margin-top: 20px;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #4a5568;
+            border-top: 1px solid rgba(97, 218, 251, 0.1);
+            margin-top: auto;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 15px;
+            }
+            
+            .header {
+                padding-top: 20px;
+                margin-bottom: 30px;
+            }
+            
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            .projects-grid, .social-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-top: 20px;
+            }
+            
+            .project-card, .social-card {
+                padding: 25px 20px;
+            }
+            
+            .profile-photo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .about-section {
+                padding: 20px;
+            }
+            
+            .status-badges {
+                flex-direction: column;
+            }
+            
+            .stats-images img {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .project-card, .social-card {
+                padding: 20px 15px;
+            }
+            
+            .about-section {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1 class="logo">About Ayush Kumar</h1>
+            <p class="tagline">A curious builder and learner crafting random projects in my free time. I love experimenting with code, hardware, and ideas to create something unique. Currently diving into web development, IoT, and problem-solving with code!</p>
+        </header>
+        
+        <!-- Main Content Section -->
+        <main>
+            <!-- Profile Photo Section -->
+            <section class="photo-section">
+                <img src="https://pbs.twimg.com/profile_images/1907151303387783168/Xl_MW9tr.jpg" alt="Ayush Kumar" class="profile-photo">
+                <p class="tagline">leuwenhoek - (14yo learner)</p>
+            </section>
+            
+            <!-- About Section -->
+            <section class="about-section">
+                <h3 class="about-title">🚀 About Me</h3>
+                <ul class="about-list">
+                    <li>💻 <strong>Passionate about</strong>: Building projects that blend creativity and tech.</li>
+                    <li>🌱 <strong>Learning</strong>: Advanced Python, embedded systems, and modern web frameworks.</li>
+                    <li>⚡ <strong>Fun fact</strong>: I built a sleep detection system to catch those sneaky naps!</li>
+                    <li>📫 <strong>Reach me</strong>: <a href="mailto:ninjabeastyy24@gmail.com" style="color: #61dafb;">ninjabeastyy24@gmail.com</a> | <a href="https://x.com/_leuwenhoek_" style="color: #61dafb;">X</a></li>
+                </ul>
+            </section>
+            
+            <!-- Tech Stack Section -->
+            <section class="tech-section">
+                <h2 class="info-title" style="text-align: center; color: #61dafb; margin-bottom: 15px;">🛠️ My Tech Stack</h2>
+                <div class="tech-icons">
+                    <img src="https://skillicons.dev/icons?i=arduino,html,css,python,cpp,flask,git" alt="Skills">
+                </div>
+                <div class="tech-list">
+                    <ul>
+                        <li><strong>Languages</strong>: Python, C++, HTML, CSS</li>
+                        <li><strong>Frameworks/Tools</strong>: Flask, Arduino, Git</li>
+                        <li><strong>Exploring</strong>: IoT platforms and embedded systems</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- Featured Projects Section -->
+            <section class="projects-section">
+                <h2 class="info-title" style="text-align: center; color: #61dafb; margin-bottom: 15px;">🔥 Featured Projects</h2>
+                <p style="text-align: center; color: #8892b0; margin-bottom: 20px;">Here’s a glimpse of what I’ve been building:</p>
+                <div class="projects-grid">
+                    <a href="https://github.com/leuwenhoek/sleep-detection" target="_blank" class="project-card">
+                        <h2 class="project-card-title">Sleep Detection System</h2>
+                        <p class="project-card-description">A system to monitor and detect sleep patterns using sensors.<br><strong>Tech</strong>: Arduino, C++, Sensors<br><strong>Status</strong>: Completed 🎉</p>
+                    </a>
+                </div>
+                <p style="text-align: center; color: #8892b0; margin-top: 20px;">Check out more on <a href="https://github.com/leuwenhoek?tab=repositories" style="color: #61dafb;">my GitHub repositories</a>!</p>
+            </section>
+            
+            <!-- Status Section -->
+            <section class="status-section">
+                <h2 class="info-title" style="text-align: center; color: #61dafb; margin-bottom: 15px;">🎮 What’s Happening?</h2>
+                <div class="status-badges">
+                    <img src="https://nocache.advaith.workers.dev?url=https://img.shields.io/endpoint?url=https://dev.discordprofiles.me/api/badge/status/276544649148235776?simple=true" alt="Discord Status">
+                    <img src="https://nocache.advaith.workers.dev?url=https://img.shields.io/endpoint?url=https://dev.discordprofiles.me/api/badge/playing/276544649148235776" alt="Now Playing">
+                    <img src="https://nocache.advaith.workers.dev?url=https://img.shields.io/endpoint?url=https://dev.discordprofiles.me/api/badge/vscode/276544649148235776" alt="VSCode Activity">
+                </div>
+            </section>
+            
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stats-images">
+                    <img src="https://github-readme-stats.vercel.app/api?username=leuwenhoek&show_icons=true&theme=tokyonight" alt="Ayush's GitHub stats">
+                    <img src="https://streak-stats.demolab.com?user=leuwenhoek&theme=tokyonight" alt="GitHub Streak">
+                </div>
+            </section>
+            
+            <!-- Social Media Section -->
+            <section class="social-section">
+                <h2 class="info-title" style="text-align: center; color: #61dafb; margin-bottom: 15px;">🤝 Let’s Connect!</h2>
+                <p style="text-align: center; color: #8892b0; margin-bottom: 20px;">Got an idea for a cool project or just want to chat about tech? Drop me a message!<br>Working on something awesome? Let’s collaborate!</p>
+                <div class="social-grid">
+                    <a href="https://github.com/leuwenhoek" target="_blank" class="social-card">
+                        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub Logo" class="social-card-icon">
+                        <h3 class="social-card-title">GitHub</h3>
+                    </a>
+                    <a href="https://x.com/_leuwenhoek_" target="_blank" class="social-card">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Logo_of_Twitter.svg" alt="X Logo" class="social-card-icon">
+                        <h3 class="social-card-title">X</h3>
+                    </a>
+                    <a href="mailto:ninjabeastyy24@gmail.com" class="social-card">
+                        <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Email Logo" class="social-card-icon">
+                        <h3 class="social-card-title">Email</h3>
+                    </a>
+                    <a href="https://peerlist.io/leuwenhoek" target="_blank" class="social-card">
+                        <img src="https://iili.io/FbANtJ2.jpg" alt="Peerlist Logo" class="social-card-icon">
+                        <h3 class="social-card-title">Peerlist</h3>
+                    </a>
+                </div>
+                <p class="quote" style="text-align: center; margin-top: 30px;">“Code is like poetry; it’s all about expressing ideas with elegance.”</p>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; 2025 Get-System-Info.</p>
+        </footer>
+    </div>
+</body>
+</html>
