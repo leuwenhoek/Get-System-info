@@ -2,15 +2,14 @@ import fetch
 import plot
 import show_data
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, ttk
 import os
-from tkinter import ttk
 import threading
 import time
 import webbrowser
 import traceback
-import sys
 import matplotlib.pyplot as plt
+
 
 def show_error(error_type, error_msg, traceback_info):
     error_window = tk.Toplevel()
@@ -24,52 +23,53 @@ def show_error(error_type, error_msg, traceback_info):
     
     # Error type
     tk.Label(error_frame, 
-            text=f"Error Type: {error_type}",
-            fg="#ff4d4d",
-            bg="#0f1419",
-            font=("Segoe UI", 12, "bold")).pack(pady=(0,10))
+             text=f"Error Type: {error_type}",
+             fg="#ff4d4d",
+             bg="#0f1419",
+             font=("Segoe UI", 12, "bold")).pack(pady=(0,10))
     
     # Error message
     tk.Label(error_frame,
-            text="Error Message:",
-            fg="#61dafb",
-            bg="#0f1419",
-            font=("Segoe UI", 10, "bold")).pack(anchor='w')
+             text="Error Message:",
+             fg="#61dafb",
+             bg="#0f1419",
+             font=("Segoe UI", 10, "bold")).pack(anchor='w')
     
     error_text = tk.Text(error_frame, 
-                        height=4,
-                        bg="#1a2332",
-                        fg="#e8eaed",
-                        font=("Consolas", 10))
+                         height=4,
+                         bg="#1a2332",
+                         fg="#e8eaed",
+                         font=("Consolas", 10))
     error_text.insert('1.0', error_msg)
     error_text.config(state='disabled')
     error_text.pack(fill='x', pady=(0,10))
     
     # Traceback
     tk.Label(error_frame,
-            text="Traceback:",
-            fg="#61dafb",
-            bg="#0f1419",
-            font=("Segoe UI", 10, "bold")).pack(anchor='w')
+             text="Traceback:",
+             fg="#61dafb",
+             bg="#0f1419",
+             font=("Segoe UI", 10, "bold")).pack(anchor='w')
     
     trace_text = tk.Text(error_frame,
-                        height=8,
-                        bg="#1a2332",
-                        fg="#e8eaed",
-                        font=("Consolas", 10))
+                         height=8,
+                         bg="#1a2332",
+                         fg="#e8eaed",
+                         font=("Consolas", 10))
     trace_text.insert('1.0', traceback_info)
     trace_text.config(state='disabled')
     trace_text.pack(fill='x', pady=(0,10))
     
     # Help link
     help_link = tk.Label(error_frame,
-                        text="Get help at: Get-System-Info Support",
-                        fg="#61dafb",
-                        bg="#0f1419",
-                        cursor="hand2",
-                        font=("Segoe UI", 10, "underline"))
+                         text="Get help at: Get-System-Info Support",
+                         fg="#61dafb",
+                         bg="#0f1419",
+                         cursor="hand2",
+                         font=("Segoe UI", 10, "underline"))
     help_link.pack(pady=10)
     help_link.bind("<Button-1>", lambda e: webbrowser.open("http://localhost:5000/help"))
+
 
 def run_diagnose(progress_var, percent_label, start_btn, done_frame):
     start_btn.config(state='disabled')
@@ -86,7 +86,6 @@ def run_diagnose(progress_var, percent_label, start_btn, done_frame):
             time.sleep(0.03)
             progress_var.set(i)
             percent_label.config(text=f"{i}%")
-        # Run plot in main thread
         root.after(0, plot.main)
         
         # Generate report (33%)
@@ -105,12 +104,13 @@ def run_diagnose(progress_var, percent_label, start_btn, done_frame):
         traceback_info = traceback.format_exc()
         root.after(0, lambda: show_error(error_type, error_msg, traceback_info))
     finally:
-        # Cleanup matplotlib
         plt.close('all')
         start_btn.config(state='normal')
 
+
 def open_report():
     webbrowser.open_new(os.path.join("main","Scripts","content","index.html"))
+
 
 def main():
     global root  # Make root accessible to run_diagnose
@@ -124,7 +124,7 @@ def main():
     report_frame = tk.Frame(root, bg="#0f233a", pady=5)
     report_frame.pack(fill='x')
     
-    # Website Link
+    # Report Issues Link
     report_link = tk.Label(
         report_frame,
         text="Report Issues → get-system-info.web.app/report",
@@ -133,9 +133,21 @@ def main():
         bg="#0f233a",
         cursor="hand2"
     )
-    report_link.pack()
-    report_link.bind("<Button-1>", lambda e: webbrowser.open("http://localhost:5000/report"))
+    report_link.pack(anchor='w', padx=10)
+    report_link.bind("<Button-1>", lambda e: webbrowser.open("https://web-get-system-info.onrender.com/report"))
     
+    # Visit Website Link
+    website_link = tk.Label(
+        report_frame,
+        text="Visit our website → get-system-info.web.app",
+        font=("Segoe UI", 9),
+        fg="#61dafb",
+        bg="#0f233a",
+        cursor="hand2"
+    )
+    website_link.pack(anchor='w', padx=10, pady=2)
+    website_link.bind("<Button-1>", lambda e: webbrowser.open("https://web-get-system-info.onrender.com"))
+
     # Separator
     tk.Frame(root, height=1, bg="#21a1c4").pack(fill='x', padx=10)
 
@@ -204,5 +216,25 @@ def main():
 
     root.mainloop()
 
-if __name__ == "__main__":
+
+def show_splash_then_main():
+    splash = tk.Tk()
+    splash.geometry("300x150")
+    splash.overrideredirect(True)  # Remove window borders
+    splash.config(bg="#0f233a")
+    
+    splash_label = tk.Label(splash, text="Loading... Please wait", fg="white", bg="#0f233a", font=("Segoe UI", 14))
+    splash_label.pack(expand=True)
+
+    splash.update()
+
+    # Simulate short loading delay, can be replaced with lightweight initializations
+    time.sleep(2)
+
+    splash.destroy()
+    
     main()
+
+
+if __name__ == "__main__":
+    show_splash_then_main()
