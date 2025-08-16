@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Get-System-Info</title>
+    <style>
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 25%, #2d1b69 75%, #0f1419 100%);
+            color: #e8eaed;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(43, 47, 49, 0.95);
+            border-radius: 18px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h1, h2 {
+            background: linear-gradient(135deg, #61dafb 0%, #21a1c4 50%, #a8dadc 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 24px;
+        }
+
+        p {
+            color: #a8dadc;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            color: #a8dadc;
+            margin-bottom: 12px;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .features li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #61dafb;
+        }
+
+        .links {
+            margin-top: 32px;
+            padding: 20px;
+            background: rgba(33, 161, 196, 0.1);
+            border-radius: 12px;
+        }
+
+        a {
+            color: #61dafb;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #21a1c4;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>About Get-System-Info</h1>
+        <p>Get-System-Info is a powerful diagnostic tool that provides detailed information about your system's performance and configuration. It combines real-time monitoring with comprehensive reporting features.</p>
+
+        <h2>Key Features</h2>
+        <ul class="features">
+            <li>Real-time CPU and Memory monitoring</li>
+            <li>Detailed disk usage analysis</li>
+            <li>Network connection tracking</li>
+            <li>Process management and monitoring</li>
+            <li>Interactive data visualization</li>
+            <li>Export capabilities for system reports</li>
+        </ul>
+
+        <h2>How It Works</h2>
+        <p>The tool collects system metrics using Python's built-in libraries and presents them through an intuitive web interface. Data is visualized using interactive charts and exportable reports.</p>
+
+        <div class="links">
+            <h2>Resources</h2>
+            <p>
+                <strong>GitHub Repository:</strong> 
+                <a href="https://github.com/leuwenhoek/Get-System-Info" target="_blank">github.com/leuwenhoek/Get-System-Info</a>
+            </p>
+            <p>
+                <strong>Documentation:</strong> 
+                <a href="https://coffee-drucill-56.tiiny.site/md/README" target="_blank">Read the documentation</a>
+            </p>
+            <p>
+                <form action="{{ url_for('report') }}" method="post"></form>
+                <strong>Issues & Support:</strong>
+                <a href="{{ url_for('report') }}" target="_blank">Report an issue</a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
