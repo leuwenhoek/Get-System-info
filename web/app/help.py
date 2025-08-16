@@ -38,5 +38,8 @@ def report():
 def about():
     return render_template("about.html")
 
+@app.route("/about_dev",methods=["POST","GET"])
+def about_dev():
+    return render_template("about_dev.html")
 if __name__ == "__main__":
     app.run(debug=True)
