@@ -50,6 +50,8 @@ def get_data(want):
         return combined_disk
     elif given == "each disk":    
         return data["DISK"]["Each Disk"]
+    elif given == "battery":
+        return data["BATTERY"]
     else:
         raise Exception("Wrong command")
 
@@ -61,6 +63,11 @@ def content(want):
     OS_version = os_data["OS version"]
     pross_arch = os_data["Processor architecture"]   # may be a list
     pross = os_data["Processor"]
+
+    battery_data = get_data("battery")
+    battery_left = battery_data["Battery left"]
+    Is_charging = battery_data["Is charging"]
+    time_left = battery_data["Estimated Time left"]
 
     cpu_data = get_data("cpu data")
     logical_CPU = cpu_data["Logical CPU"]
@@ -631,6 +638,15 @@ def content(want):
                     <tr><td>OS version</td><td>{OS_version}</td></tr>
                     <tr><td>Processor architecture</td><td>{pross_arch}</td></tr>
                     <tr><td>Processor</td><td>{pross}</td></tr>
+                </table>
+            </section>
+            <section>
+                <h3>About Battery:</h3>
+                <table>
+                    <tr><th>Property</th><th>Results</th></tr>
+                    <tr><td>Battery left (%)</td><td>{battery_left}</td></tr>
+                    <tr><td>On charge</td><td>{Is_charging}</td></tr>
+                    <tr><td>Estimated time left (hrs)</td><td>{time_left}</td></tr>
                 </table>
             </section>
             <section>
