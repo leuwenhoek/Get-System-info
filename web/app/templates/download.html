@@ -3,121 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download</title>
+    <title>Download Get-System-Info</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Download Page Stylesheet - Modern Dark Theme */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-body {
-    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: linear-gradient(135deg, #0f1419 0%, #1a2332 25%, #2d1b69 75%, #0f1419 100%);
-    color: #e8eaed;
-    min-height: 100vh;
-    padding: 40px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 25%, #2d1b69 75%, #0f1419 100%);
+            color: #e8eaed;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.container {
-    background: rgba(43, 47, 49, 0.95);
-    border: 1px solid rgba(97, 218, 251, 0.2);
-    border-radius: 18px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    padding: 40px 32px;
-    max-width: 420px;
-    width: 100%;
-    text-align: center;
-    animation: fadeInDown 0.8s ease-out;
-}
+        .container {
+            background: rgba(43, 47, 49, 0.95);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            padding: 40px 32px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            animation: fadeInDown 0.8s ease-out;
+            backdrop-filter: blur(10px);
+        }
 
-.text {
-    font-size: 2em;
-    font-weight: 700;
-    background: linear-gradient(135deg, #61dafb 0%, #21a1c4 50%, #a8dadc 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 24px;
-    text-shadow: 0 4px 8px rgba(97, 218, 251, 0.3);
-}
+        .text {
+            font-size: 2em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #61dafb 0%, #21a1c4 50%, #a8dadc 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
+            text-shadow: 0 4px 8px rgba(97, 218, 251, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
 
-p {
-    font-size: 1.1em;
-    margin-bottom: 32px;
-    color: #a8dadc;
-}
+        p {
+            font-size: 1.1em;
+            margin-bottom: 32px;
+            color: #a8dadc;
+            line-height: 1.6;
+        }
 
-.btn {
-    display: inline-block;
-    padding: 16px 32px;
-    font-size: 1.1em;
-    font-weight: 600;
-    color: #fff;
-    background: linear-gradient(135deg, #61dafb 0%, #21a1c4 100%);
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 16px rgba(97, 218, 251, 0.15);
-    cursor: pointer;
-    text-decoration: none;
-    transition: background 0.3s, transform 0.2s;
-}
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+            align-items: center;
+        }
 
-.btn:hover {
-    background: linear-gradient(135deg, #21a1c4 0%, #61dafb 100%);
-    transform: scale(1.05);
-    box-shadow: 0 8px 24px rgba(97, 218, 251, 0.25);
-}
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #fff !important;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            min-width: 220px;
+            text-align: center;
+        }
 
-@keyframes fadeInDown {
-    from {
-        opacity: 0;
-        transform: translateY(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        .btn-primary {
+            background: linear-gradient(135deg, #61dafb 0%, #21a1c4 100%);
+            box-shadow: 0 4px 16px rgba(97, 218, 251, 0.15);
+        }
 
-/* Responsive */
-@media (max-width: 600px) {
-    .container {
-        padding: 24px 10px;
-        max-width: 98vw;
-    }
-    .text {
-        font-size: 1.3em;
-    }
-    .btn {
-        padding: 12px 18px;
-        font-size: 1em;
-    }
-}
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #21a1c4 0%, #61dafb 100%);
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(97, 218, 251, 0.25);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            border: 2px solid rgba(97, 218, 251, 0.3);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);
+            border-color: rgba(97, 218, 251, 0.6);
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(97, 218, 251, 0.15);
+        }
+
+        .divider {
+            margin: 32px 0;
+            border: none;
+            height: 1px;
+            background: linear-gradient(135deg, transparent, #61dafb, transparent);
+        }
+
+        h2 {
+            color: #61dafb;
+            margin-bottom: 16px;
+            font-size: 1.4em;
+            font-weight: 600;
+        }
+
+        ul, ol {
+            text-align: left;
+            margin-bottom: 24px;
+            color: #a8dadc;
+            padding-left: 20px;
+        }
+
+        li {
+            margin: 8px 0;
+            line-height: 1.5;
+        }
+
+        code {
+            background: rgba(97, 218, 251, 0.1);
+            border: 1px solid rgba(97, 218, 251, 0.2);
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-family: 'Courier New', monospace;
+            color: #61dafb;
+            font-size: 0.9em;
+        }
+
+        .contact-link {
+            color: #21a1c4 !important;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .contact-link:hover {
+            color: #61dafb !important;
+            text-decoration: underline;
+        }
+
+        .feature-icon {
+            color: #4ade80;
+            margin-right: 8px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 4px 8px rgba(97, 218, 251, 0.3);
+            }
+            to {
+                text-shadow: 0 4px 8px rgba(97, 218, 251, 0.6), 0 0 20px rgba(97, 218, 251, 0.2);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 10px;
+            }
+            
+            .container {
+                padding: 30px 20px;
+                max-width: 95vw;
+            }
+            
+            .text {
+                font-size: 1.6em;
+            }
+            
+            .btn {
+                padding: 14px 24px;
+                font-size: 1em;
+            }
+            
+            h2 {
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 25px 15px;
+            }
+            
+            .text {
+                font-size: 1.4em;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="text">Get-System-Info Download Version</h1>
-        <p>Download the latest version of Get-System-Info below:</p>
-        <a href="https://drive.google.com/uc?export=download&id=1b2Xc_Ia1QBHpyfUvQNCEHD4P_fd9TEPn" class="btn">Download v1.0</a>
-        <hr style="margin: 32px 0; border: none; border-top: 1px solid #61dafb;">
-        <h2 style="color:#61dafb; margin-bottom:12px;">Features</h2>
-        <ul style="text-align:left; margin-bottom:24px; color:#a8dadc;">
-            <li>✔️ Detailed system information (CPU, RAM, Disk, Network)</li>
-            <li>✔️ Interactive graphs and tables</li>
-            <li>✔️ Modern, responsive web interface</li>
-            <li>✔️ Easy export and sharing</li>
+        <h1 class="text">Get-System-Info Download</h1>
+        <p>Download the latest version of Get-System-Info and get detailed insights about your system!</p>
+        
+        <div class="button-group">
+            <a target="_blank" href="https://drive.google.com/uc?export=download&id=1b2Xc_Ia1QBHpyfUvQNCEHD4P_fd9TEPn" class="btn btn-primary">
+                📥 Download v1.0
+            </a>
+            
+            <a href="/manual" class="btn btn-secondary">
+                📖 See Download Manual
+            </a>
+        </div>
+        
+        <hr class="divider">
+        
+        <h2>✨ Features</h2>
+        <ul>
+            <li><span class="feature-icon">✅</span>Detailed system information (CPU, RAM, Disk, Network)</li>
+            <li><span class="feature-icon">✅</span>Interactive graphs and tables</li>
+            <li><span class="feature-icon">✅</span>Modern, responsive web interface</li>
+            <li><span class="feature-icon">✅</span>Easy export and sharing</li>
         </ul>
-        <h2 style="color:#61dafb; margin-bottom:12px;">Installation</h2>
-        <ol style="text-align:left; margin-bottom:24px; color:#a8dadc;">
+        
+        <h2>🚀 Installation</h2>
+        <ol>
             <li>Download the ZIP file above</li>
             <li>Extract it to your desired folder</li>
             <li>Open the README for setup instructions</li>
-            <li>Run <code>python main.py</code> to start</li>
+            <li>Run <code>main.exe</code> to start</li>
         </ol>
-        <h2 style="color:#61dafb; margin-bottom:12px;">Need Help?</h2>
-        <p style="color:#a8dadc;">
-            For support or feedback, contact <a style="color:#21a1c4;">ayush.genius69@gmail.com</a>
+        
+        <h2>💬 Need Help?</h2>
+        <p>
+            For support or feedback, contact 
+            <a href="mailto:ayush.genius69@gmail.com" class="contact-link">ayush.genius69@gmail.com</a>
         </p>
     </div>
 </body>
