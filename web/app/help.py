@@ -41,5 +41,9 @@ def about():
 @app.route("/about_dev",methods=["POST","GET"])
 def about_dev():
     return render_template("about_dev.html")
+
+@app.route("/manual")
+def manual():
+    return render_template("manual.html")
 if __name__ == "__main__":
     app.run(debug=True)
